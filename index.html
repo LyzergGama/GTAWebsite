@@ -1429,6 +1429,8 @@
         const phoneNumber = document.getElementById("phone").value;
         const message = document.getElementById("message").value;
 
+        console.log('Form Data:', { firstName, lastName, brandOrCreator, phoneNumber, message });
+
         const formData = new FormData();
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
@@ -1441,8 +1443,14 @@
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to submit form');
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Response from Google Apps Script:', data);
             if (data.result === "success") {
                 document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
                 document.getElementById("contactForm").reset();
@@ -1451,7 +1459,8 @@
             }
         })
         .catch(error => {
-            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
+            console.error('Error submitting form:', error);
+            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form. Please try again later.</div>";
         });
     });
 });
