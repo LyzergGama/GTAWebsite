@@ -1419,17 +1419,16 @@
         carousel.scrollBy({ left: 200, behavior: 'smooth' });
     });
 
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
+   document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    // Ambil data dari form
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const brandOrCreator = document.getElementById("brandOrCreator").value;
     const phoneNumber = document.getElementById("phone").value;
     const message = document.getElementById("message").value;
 
-    // Kirim data ke Google Apps Script menggunakan FormData
+    // Create a FormData object and append the form data
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
@@ -1437,7 +1436,7 @@
     formData.append("phoneNumber", phoneNumber);
     formData.append("message", message);
 
-    // URL dari Google Apps Script yang sudah dideploy
+    // Send the form data to Google Apps Script via POST request
     fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
         method: "POST",
         body: formData
@@ -1455,6 +1454,7 @@
         document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
     });
 });
+
 });
 
 </script>
