@@ -1419,8 +1419,8 @@
         carousel.scrollBy({ left: 200, behavior: 'smooth' });
     });
 
-    // Contact form submission (your code here)
-   // Contact form submission handler
+   <script>
+    // Contact form submission handler
     document.getElementById("contactForm").addEventListener("submit", function(event) {
         event.preventDefault();
         
@@ -1433,9 +1433,18 @@
         const formData = new FormData();
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
-        formData.append("brandOrCreator", brandOrCreator);  // Changed this back to the original order
+        formData.append("brandOrCreator", brandOrCreator);
         formData.append("phoneNumber", phoneNumber);
         formData.append("message", message);
+
+        // Log the form data to see if everything is being sent correctly
+        console.log("Form data:", {
+            firstName: firstName,
+            lastName: lastName,
+            brandOrCreator: brandOrCreator,
+            phoneNumber: phoneNumber,
+            message: message
+        });
 
         // Use the provided Google Apps Script URL
         fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
@@ -1452,10 +1461,11 @@
             }
         })
         .catch(error => {
+            console.error("Error submitting form:", error);
             document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
         });
     });
-});
+</script>
 
 </script>
         
