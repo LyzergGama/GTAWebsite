@@ -1419,7 +1419,7 @@
         carousel.scrollBy({ left: 200, behavior: 'smooth' });
     });
 
-  document.getElementById("contactForm").addEventListener("submit", function(event) {
+ document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const firstName = document.getElementById("firstName").value;
@@ -1428,7 +1428,6 @@
     const phoneNumber = document.getElementById("phone").value;
     const message = document.getElementById("message").value;
 
-    // Create a FormData object and append the form data
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
@@ -1436,8 +1435,8 @@
     formData.append("phoneNumber", phoneNumber);
     formData.append("message", message);
 
-    // Send the form data to Google Apps Script via POST request
-    fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
+    // Use the provided Google Apps Script URL
+    fetch('https://script.google.com/macros/s/AKfycbyT_sH0Jgu2afJt-R6iluwniBbn79zWsp_U3XTuZHpUFoOZcQoxhe3cUYpcEVHBvl8Y/exec', {
         method: "POST",
         body: formData
     })
