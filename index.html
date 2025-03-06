@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowTogether</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/32c98cb737.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="./Assets/GTAlogo.ico">
+ 
+    <style>
+        html {
+        scroll-behavior: smooth;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Base styles for the navbar */
+        .adaptive-navbar {
+            background-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Default state: Transparent background with white text */
+        .adaptive-navbar .navbar-brand,
+        .adaptive-navbar .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        /* Scrolled state: Light background with black text */
+        .adaptive-navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .adaptive-navbar.scrolled .navbar-brand,
+        .adaptive-navbar.scrolled .nav-link {
+            color: black;
+        }
+
+        /* Hover effect for links */
+        .adaptive-navbar .nav-link:hover {
+            color: #e53f32;
+        }
+
+
+
+        .fade-in-section {
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.5s;
+            animation-fill-mode: both;
+        }
+
+        #about-us {
+        background-color: #ffffff; /* White background */
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1); /* Light gray highlight */
+            border-radius: 50%;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        #about-us .fw-bold {
+            color: black;
+        }
+
+        .text-black-50 {
+            color: rgba(0, 0, 0, 0.75); /* Subtle dark text for readability */
+        }
+
+        .fade-in-section-about{
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.75s;
+            animation-fill-mode: both;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .hero-section {
+    position: relative;
+    background-image: url('./Assets/Jumbotron.png'); /* Replace with your image URL */
+    background-size: cover; /* Ensures the image covers the hero section */
+    background-position: center center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling of the background image */
+    height: 100vh; /* Full viewport height, adjust as needed */
+    object-fit: cover; /* Ensures the background image maintains its aspect ratio */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay for text readability */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Ensures text appears above the overlay */
+    padding: 20px;
+    text-align: center; /* Centers the text */
+    color: white;
+}
+
+
+        h1 span {
+            color: #e53f32;
+        }
+
+
+        .my-divider {
+            border: none;
+            height: 75px;
+            background-color: #ccc;
+            margin: 40px 0;
+        }
+        .about-us {
+            background-color: black;
+            color: white;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .about-us .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .about-us .container .row {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            border-radius: 15px;
+        }
+
+        
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }  
+    /* General Layout */
+    .choose-us-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 0;
+      background: linear-gradient(135deg, #3498db, #8e44ad);
+      color: white;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .choose-us-left {
+      flex: 1;
+      text-align: center;
+      padding-right: 30px; /* Adjust padding for more space */
+    }
+
+    .choose-us-left img {
+      max-width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .choose-us-left img:hover {
+      transform: scale(1.1);
+    }
+
+    .choose-us-right {
+      flex: 2;
+      padding-left: 60px;
+      padding-right: 60px; /* Add padding to the right for spacing */
+    }
+
+    .choose-us-right h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .choose-us-right p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ecf0f1;
+    }
+
+    /* Icon Points */
+    .choose-us-icons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .choose-us-icons .icon-item {
+      position: relative;
+      text-align: center;
+      background: #ffffff;
+      color: #34495e;
+      border-radius: 12px;
+      padding: 30px;
+      width: 30%;
+      height: 200px; /* Default size to accommodate description */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      font-size: 1.2rem;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .choose-us-icons .icon-item:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .unclickable {
+    pointer-events: none;
+    cursor: default;
+}
+
+    .choose-us-icons .icon-item i {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #3498db;
+      transition: color 0.3s ease;
+    }
+
+    .choose-us-icons .icon-item:hover i {
+      color: #8e44ad;
+    }
+
+    .choose-us-icons .icon-item h5 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    /* Hidden Paragraph */
+    .choose-us-icons .icon-item .icon-description {
+      display: block;
+      position: absolute;
+      bottom: 20px; /* Keeps the paragraph at the bottom of the button */
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2c3e50;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      width: 80%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .choose-us-icons .icon-item:hover .icon-description {
+      opacity: 1;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .choose-us-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .choose-us-left {
+        margin-bottom: 30px;
+        padding-right: 0;
+      }
+
+      .choose-us-right {
+        padding-left: 30px; /* Reduced padding on mobile for better responsiveness */
+        padding-right: 30px;
+      }
+
+      .choose-us-icons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .choose-us-icons .icon-item {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+    }
+
+    
+#our-services {
+    background-color: black;
+    color: white;
+    padding: 60px 0;
+}
+
+#our-services .service-card {
+    background-color: #222;
+    border-radius: 15px;
+    padding: 30px;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+#our-services .service-card:hover {
+    transform: scale(1.05);
+    background-color: #333;
+}
+
+#our-services .service-card i {
+    color: #e53f32;
+}
+
+#our-services .service-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
+    line-height: 1.2;
+}
+
+/* Adjust font size for multi-word services */
+#our-services .service-text {
+    display: block;
+}
+
+#our-services .service-text br {
+    display: block;
+    line-height: 1.5;
+}
+
+/* Service text layout for 3+ words */
+#our-services .service-text {
+    text-align: center;
+}
+
+/* Fontawesome icon size */
+#our-services .fa {
+    font-size: 3rem;
+}
+
+/* For responsive columns */
+@media (max-width: 768px) {
+    #our-services .col-md-4 {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    #our-services .col-12 {
+        margin-bottom: 20px;
+    }
+}
+
+        .logo-column {
+            text-align: left;
+            padding-left: 2rem;
+        }
+
+        .text-column {
+            text-align: right;
+            padding-right: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .logo-column img {
+                margin-left: -1rem;
+            }
+            .text-column {
+                margin-right: -1rem;
+            }
+        }
+
+/* Section Styling */
+.success-stories {
+  background: #f9f9f9;
+  padding: 60px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h1 {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+/* Hover Profile Preview */
+.profile-preview {
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-card h3 {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+
+.profile-card p {
+  font-size: 1em;
+  color: #666;
+}
+
+/* Story Cards */
+.story-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove default link styling */
+.story-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.story-card:hover {
+  cursor: pointer;
+}
+
+.story-card-link:hover .story-card {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Blur Effect for GMV Nominals */
+.stat .value {
+  position: relative;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #222;
+}
+
+.stat .value:hover {
+  filter: blur(0);
+}
+
+.stat .value:not(:hover) {
+  filter: blur(3px);
+  transition: filter 0.3s ease;
+}
+
+
+
+        .top-creators {
+            background: #f9f9f9;
+        }
+
+        .creator-card {
+            background: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .creator-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .creator-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #ddd;
+            object-fit: cover;
+            transition: border-color 0.3s ease;
+        }
+
+        .creator-card:hover .creator-img {
+            border-color: #007bff;
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background: #007bff;
+            color: #ffffff;
+        }
+
+
+        .creator-card {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .creator-card.float {
+            opacity: 1;
+            transform: translateX(0) translateY(-10px);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(-10px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+        }
+
+        .creator-card.float {
+            animation: float 2s infinite ease-in-out;
+        }
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .brand-circle {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 50%;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-circle img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-circle:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .brand-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        #contact-us {
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phone-number {
+            display: inline-block;
+            font-weight: bold;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .phone-number:hover {
+            color: #feb47b;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: #feb47b;
+        }
+
+        @media (max-width: 767px) {
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+
+        .whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.whatsapp-link {
+  background-color: #25D366;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+#articles {
+            margin-top: 50px;  /* Add some margin at the top for spacing */
+        }
+
+        #articles .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        #articles .carousel-item .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+        }
+
+        #articles .article-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #articles .article-summary {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        /* Ensure the carousel doesn't interfere with other styles */
+        #articleCarousel {
+            margin-bottom: 30px;
+        }
+
+        #articles h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #articles .carousel-control-prev-icon,
+        #articles .carousel-control-next-icon {
+            background-color: #000;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top adaptive-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="./index.html">Grow Together Agency</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-us">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#our-services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-choose-us">Why Choose Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#success-story">Success Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#partners">Partners</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <section class="hero-section position-relative" id="home">
+        
+    </section>
+    
+
+    <section id="about-us" class="py-5 hidden">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left: Image/Illustration -->
+                <div class="col-md-6 text-center mb-4 mb-md-0">
+                    <img src="./Assets/GTAlogo.png" alt="About Us" class="img-fluid rounded">
+                </div>
+    
+                <!-- Right: Text Content -->
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-3">Who We Are</h2>
+                    <p class="text-black-50">
+                        At <span class="fw-bold text-black">Grow Together™</span>, we believe in the power of collaboration. Our mission is to help businesses 
+                        and individuals unlock their full potential through innovative solutions in 
+                        <span class="fw-bold text-black">marketing, branding, and creative design</span>.
+                    </p>
+                    <p class="text-black-50">
+                        With a team of dedicated professionals, we focus on delivering results that not only 
+                        meet but exceed expectations, helping you grow, thrive, and succeed.
+                    </p>
+                    
+                    <!-- Vision, Mission, Values -->
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="icon-box me-3">
+                            <i class="fa-solid fa-eye fa-shake"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-black">Our Vision</h5>
+                            <p class="text-black-50 mb-0">To become the trusted partner for sustainable growth and innovation.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start mb-3">
+                        <div class="icon-box me-3">
+                            <i class="fa-solid fa-rocket fa-bounce"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-black">Our Mission</h5>
+                            <p class="text-black-50 mb-0">Empowering our clients with impactful solutions that drive growth and success.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-start">
+                        <div class="icon-box me-3">
+                            <i class="fa-solid fa-heart fa-beat"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-black">Our Values</h5>
+                            <p class="text-black-50 mb-0">Integrity, innovation, and a passion for excellence in everything we do.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="our-services" class="bg-dark text-white py-5 hidden">
+        <div class="container text-center">
+            <h1 class="fw-bold text-white mb-5 display-1 text-center">WHAT WE OFFER</h1>
+            <div class="row justify-content-center">
+                <!-- Service 1 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="MCN.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-tv fa-3x mb-3"></i>
+                            <p class="service-text">Multi Channel<br>Network</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 2 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="TikTokShopPartner.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-shopping-cart fa-3x mb-3"></i>
+                            <p class="service-text">Tiktok Shop<br>Partner</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 3 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="AdsManagement.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-ad fa-3x mb-3"></i>
+                            <p class="service-text">Ads Management<br>Services</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 4 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="EventOrganizer.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-calendar fa-3x mb-3"></i>
+                            <p class="service-text">Event<br>Organizer</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 5 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="SocialMediaManagement.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-share-alt fa-3x mb-3"></i>
+                            <p class="service-text">Social Media<br>Management</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 6 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="CommercialVideo.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-video fa-3x mb-3"></i>
+                            <p class="service-text">Commercial<br>Video</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 7 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="ProductPhotography.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-camera fa-3x mb-3"></i>
+                            <p class="service-text">Product<br>Photography</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 8 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="FactoryResource.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-industry fa-3x mb-3"></i>
+                            <p class="service-text">Factory<br>Resource</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 9 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="InventoryStorage.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-warehouse fa-3x mb-3"></i>
+                            <p class="service-text">Inventory and<br>Storage Solutions</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 10 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="MediaRelations.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-bullhorn fa-3x mb-3"></i>
+                            <p class="service-text">Media<br>Relations</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Service 11 -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="ConsultantAgency.html" class="text-decoration-none text-dark">
+                        <div class="service-card">
+                            <i class="fa fa-lightbulb fa-3x mb-3"></i>
+                            <p class="service-text">Consultant<br>Agency</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- Coming Soon -->
+                <div class="col-12 col-md-4 mb-4">
+                    <a href="#" class="text-decoration-none text-dark unclickable">
+                        <div class="service-card">
+                            <i class="fa fa-cogs fa-3x mb-3"></i>
+                            <p class="service-text">Coming<br>Soon</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+ 
+
+    <section class="choose-us-section hidden" id="why-choose-us">
+        <!-- Left Section with Logo -->
+        <div class="choose-us-left">
+          <img src="./Assets/GTAlogo.png" alt="Your Logo" style="height: 100%; width: 300px;">
+        </div>
+    
+        <!-- Right Section with Points -->
+        <div class="choose-us-right">
+          <h2>Why Choose Us?</h2>
+          <p>We are a fast-growing MCN with a focus on TikTok. We help brands skyrocket their engagement, reach, and growth by creating viral, data-driven content and collaborating with top influencers.</p>
+    
+          <!-- Icon Points -->
+          <div class="choose-us-icons">
+            <div class="icon-item">
+              <i class="fas fa-bullhorn"></i>
+              <h5>Engaging Content</h5>
+              <div class="icon-description">
+                We create viral TikTok content that captures attention and boosts engagement for your brand.
+              </div>
+            </div>
+    
+            <div class="icon-item">
+              <i class="fas fa-users"></i>
+              <h5>Influencer Partnerships</h5>
+              <div class="icon-description">
+                Connect with top influencers to amplify your message, creating authentic connections and growing your reach.
+              </div>
+            </div>
+    
+            <div class="icon-item">
+              <i class="fas fa-chart-line"></i>
+              <h5>Data-Driven Strategy</h5>
+              <div class="icon-description">
+                We use data and analytics to optimize every campaign, ensuring maximum impact and growth.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="success-stories hidden" id="success-story">
+        <div class="container">
+          <div class="section-header">
+            <h1>Success Stories</h1>
+            <p>Discover how our clients achieved outstanding results.</p>
+          </div>
+          <div class="row">
+            <!-- Hover Profile Preview Area -->
+            <div class="col-md-4 profile-preview">
+              <div class="profile-card">
+                <h5 class="mb-2"><i class="fa-brands fa-tiktok"></i> TikTok Profile</h5>
+                <img id="profile-image" src="./Assets/profile-pict.jpg" alt="Profile Picture">
+                <br>
+                <div>
+                <h3 id="profile-handle">@username</h3>
+                </div>
+                <p id="profile-followers">Followers: </p>
+              </div>
+            </div>
+            
+            <div class="col-md-8">
+              <div class="row">
+                <!-- Success Story Card 1 -->
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.tiktok.com/@dokterdetektif" target="_blank" class="story-card-link">
+                    <div class="story-card" 
+                         data-handle="@dokterdetektif" 
+                         data-followers="2.3M" 
+                         data-image="./Assets/dokterdetektif.jpeg">
+                      <h2 class="client-name"><i class="fa-regular fa-circle-check mb-2" style="color: #74C0FC;"></i> dokterdetektif</h2>
+                      <div class="gmv-stats">
+                        <div class="stat mt-2">
+                            <h5>GMV Increase : <i class="fa-solid fa-chart-line" style="color: #63E6BE;"></i> 1200%</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+      
+                <!-- Success Story Card 2 -->
+                <div class="col-md-6">
+                  <a href="https://www.tiktok.com/@mayacado_" target="_blank" class="story-card-link">
+                    <div class="story-card" 
+                         data-handle="@mayacado_" 
+                         data-followers="198.8K" 
+                         data-image="./Assets/mayacado.jpeg">
+                      <h2 class="client-name"><i class="fa-regular fa-circle-check mb-2" style="color: #74C0FC;"></i> mayacado</h2>
+                      <div class="gmv-stats">
+                        <div class="stat mt-2">
+                            <h5>GMV Increase : <i class="fa-solid fa-chart-line" style="color: #63E6BE;"></i> 100%</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+      
+                <!-- Success Story Card 3 -->
+                <div class="col-md-6">
+                  <a href="https://www.tiktok.com/@cutnyakmiraos" target="_blank" class="story-card-link">
+                    <div class="story-card" 
+                         data-handle="@cutnyakmiraos" 
+                         data-followers="121.8K" 
+                         data-image="./Assets/cutnyakmiraos.jpeg">
+                      <h2 class="client-name"><i class="fa-regular fa-circle-check mb-2" style="color: #74C0FC;"></i> CutNyakMiraOS1</h2>
+                      <div class="gmv-stats">
+                        <div class="gmv-stats">
+                            <div class="stat mt-2">
+                                <h5>GMV Increase : <i class="fa-solid fa-chart-line" style="color: #63E6BE;"></i> 1200%</h5>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+      
+                <!-- Success Story Card 4 -->
+                <div class="col-md-6">
+                  <a href="https://www.tiktok.com/@dianadealz" target="_blank" class="story-card-link">
+                    <div class="story-card" 
+                         data-handle="@dianadealz" 
+                         data-followers="36.7K" 
+                         data-image="./Assets/dianadealz.jpeg">
+                      <h2 class="client-name"><i class="fa-regular fa-circle-check mb-2" style="color: #74C0FC;"></i> dianadealz</h2>
+                      <div class="gmv-stats">
+                        <div class="gmv-stats">
+                            <div class="stat mt-2">
+                                <h5>GMV Increase : <i class="fa-solid fa-chart-line" style="color: #63E6BE;"></i> 7000%</h5>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      
+      
+    
+    <section class="top-creators py-5 bg-light" id="partners">
+        <div class="container">
+            <h1 class="fw-bold mb-4 display-4 text-center hidden">OUR TOP CREATORS</h1>
+            <p class="text-muted fs-5 text-center mb-5 hidden">
+                Meet the powerhouse creators driving exceptional results for our clients.
+            </p>
+    
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="creator-card shadow-sm p-4 rounded">
+                        <img src="./Assets/Tiktok-3.jpeg" alt="Creator 1" class="creator-img mb-3">
+                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-check" style="color: #74C0FC;"></i> DOKTER DETEKTIF</h5>
+                        <p class="text-muted mb-3">2.2M Followers</p>
+                        <a href="https://www.tiktok.com/@dokterdetektif" target="_blank" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    </div>
+                </div>
+    
+                <div class="col-md-3">
+                    <div class="creator-card shadow-sm p-4 rounded">
+                        <img src="./Assets/Tiktok-4.jpeg" alt="Creator 2" class="creator-img mb-3">
+                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-check" style="color: #74C0FC;"></i> SOIMAH PANCAWATI</h5>
+                        <p class="text-muted mb-3">6.5M Followers</p>
+                        <a href="https://www.tiktok.com/@soimah_pancawati" target="_blank" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    </div>
+                </div>
+    
+                <div class="col-md-3">
+                    <div class="creator-card shadow-sm p-4 rounded">
+                        <img src="./Assets/Tiktok-1.jpeg" alt="Creator 3" class="creator-img mb-3">
+                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-check" style="color: #74C0FC;"></i> MAYACADO_</h5>
+                        <p class="text-muted mb-3">175.5K Followers</p>
+                        <a href="https://www.tiktok.com/@mayacado_" target="_blank" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    </div>
+                </div>
+    
+                <div class="col-md-3">
+                    <div class="creator-card shadow-sm p-4 rounded">
+                        <img src="./Assets/Tiktok-2.jpeg" alt="Creator 4" class="creator-img mb-3">
+                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-check" style="color: #74C0FC;"></i> CLARASHINTAREAL</h5>
+                        <p class="text-muted mb-3">6.6M Followers</p>
+                        <a href="https://www.tiktok.com/@clarashintareal" target="_blank" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    
+
+
+    <section class="brand-partners hidden">
+        <div class="container">
+            <h1 class="fw-bold mb-4 text-center">BRAND WE'VE WORKED WITH</h1>
+            <p class="text-center text-muted mb-5">A selection of the fantastic brands we've had the privilege of collaborating with.</p>
+            
+            <div class="brand-grid">
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-1.jpg" alt="Brand 1" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-2.jpg" alt="Brand 2" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-3.jpg" alt="Brand 3" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-4.jpg" alt="Brand 4" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-5.jpg" alt="Brand 5" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-6.jfif" alt="Brand 6" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-7.jpg" alt="Brand 7" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-8.jfif" alt="Brand 8" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-9.png" alt="Brand 9" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-10.png" alt="Brand 10" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-11.webp" alt="Brand 11" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-12.jpg" alt="Brand 12" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-13.jfif" alt="Brand 13" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-14.jfif" alt="Brand 14" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-15.jpg" alt="Brand 15" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-16.png" alt="Brand 16" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-17.png" alt="Brand 17" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-18.jfif" alt="Brand 18" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-19.png" alt="Brand 19" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-20.jpg" alt="Brand 20" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-21.jfif" alt="Brand 21" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-22.jfif" alt="Brand 22" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-23.jfif" alt="Brand 23" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-24.jpg" alt="Brand 24" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-25.jfif" alt="Brand 25" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-26.jfif" alt="Brand 26" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-27.png" alt="Brand 27" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-28.png" alt="Brand 28" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-29.jfif" alt="Brand 29" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-30.png" alt="Brand 30" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-31.jfif" alt="Brand 31" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-32.png" alt="Brand 32" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-33.jfif" alt="Brand 33" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-34.jfif" alt="Brand 34" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-35.png" alt="Brand 35" />
+                </div>
+                <div class="brand-circle">
+                    <img src="./Assets/Brand-36.jfif" alt="Brand 36" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="articles" class="container">
+    <h2>Latest Articles</h2>
+
+    <?php
+    if ($result->num_rows > 0) {
+        // Start the carousel
+        echo '<div id="articleCarousel" class="carousel slide" data-bs-ride="carousel">';
+        echo '<div class="carousel-inner">';
+
+        $isFirst = true;  // To add the 'active' class to the first article
+        while ($row = $result->fetch_assoc()) {
+            $image = $row['image']; // Fetch image for the article
+            $articleId = $row['id']; // Fetch the article ID
+            $imagePath = "Assets/" . htmlspecialchars($image); // Correct image path
+            
+            echo '<div class="carousel-item ' . ($isFirst ? 'active' : '') . '">';
+            echo '<a href="view_article.php?id=' . $articleId . '">';
+            
+            // Check if the image exists
+            if (!empty($image) && file_exists($imagePath)) {
+                echo '<img src="' . $imagePath . '" class="d-block w-100" alt="Article Image">';
+            } else {
+                // Fallback if the image is not available
+                echo '<img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="No Image Available">';
+            }
+            
+            echo '</a>';
+            echo '<div class="carousel-caption d-none d-md-block">';
+            echo '<h5 class="article-title">' . htmlspecialchars($row['title']) . '</h5>';
+            echo '<p class="article-summary">' . substr(htmlspecialchars($row['content']), 0, 150) . '...</p>';
+            echo '</div>';
+            echo '</div>';
+            $isFirst = false;
+        }
+
+        echo '</div>';  // End carousel-inner
+        echo '<button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">';
+        echo '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
+        echo '<span class="visually-hidden">Previous</span>';
+        echo '</button>';
+        echo '<button class="carousel-control-next" type="button" data-bs-target="#articleCarousel" data-bs-slide="next">';
+        echo '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
+        echo '<span class="visually-hidden">Next</span>';
+        echo '</button>';
+        echo '</div>';  // End carousel
+    } else {
+        echo "<p>No articles found.</p>";
+    }
+    ?>
+</section>
+
+    
+    <section id="contact-us" class="py-5" style="background: linear-gradient(45deg, #ff7e5f, #feb47b);">
+        <div class="container text-center">
+            <h2 class="display-4 text-white mb-4">Contact Us</h2>
+            <p class="text-white mb-5">Reach us through the phone or our social channels.</p>
+            
+            <div class="container">
+                <h2 class="text-center">Contact Us</h2>
+                <form id="contactForm">
+                  <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="brandOrCreator" class="form-label">Are you a Brand or a Creator?</label>
+                    <select class="form-control" id="brandOrCreator" required>
+                      <option value="Brand">Brand</option>
+                      <option value="Creator">Creator</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="responseMessage" class="mt-3"></div>
+              </div>
+
+            <div class="phone mb-5">
+                <p class="h3 text-white">
+                    <i class=""></i><div class="whatsapp-button">
+                        <a href="https://wa.me/6285183275264" target="_blank" class="whatsapp-link">
+                            <i class="fa-brands fa-whatsapp"></i> +62 851-8327-5264
+                        </a>
+                      </div>
+                </p>
+            </div>
+    
+            <div class="social-icons mt-5">
+                <a href="https://www.instagram.com/gtagency_id/" class="text-white me-4 social-icon"><i class="fab fa-instagram fa-3x"></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gtagency01@gmail.com&su=SUBJECT&body=BODY&bcc=gtagency01@gmail.com" class="text-white me-4 social-icon"><i class="fa-solid fa-envelope fa-3x"></i></a>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="h5 mb-2"><i class="fas fa-map-marker-alt me-2"></i><strong>Address:</strong></p>
+                    <p class="h5" style="word-wrap: break-word;">Jkt Outer Ring Road No.1 7, Kamal Muara, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14470</p>
+                    <p class="h5 mb-2"><i class="fas fa-phone-alt me-2"></i><strong>Phone:</strong></p>
+                    <p class="h5">+62 851-8327-5264</p>
+                    <p class="h5 mb-2"><i class="fas fa-envelope me-2"></i><strong>Email:</strong></p>
+                    <p class="h5">gtagency01@gmail.com
+                    </p>
+                </div>
+    
+                <div class="col-md-6 text-center">
+                    <h5 class="display-6">Follow Us</h5>
+                    <div></div>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-3x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fa-brands fa-tiktok fa-3x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybzaLlv6wW5e1Z6DrC7fU7r9bLgGQkxxFeB9N1cDJ7jj8E6zqM" crossorigin="anonymous"></script>      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+
+    // JavaScript to toggle the 'scrolled' class based on page position
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.adaptive-navbar');
+        const scrollY = window.scrollY;
+
+        if (scrollY > 50) {
+            // Add scrolled class when user scrolls down
+            navbar.classList.add('scrolled');
+        } else {
+            // Remove scrolled class when at the top
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+        const contactSection = document.getElementById("contact-us");
+        window.addEventListener("scroll", function() {
+            if (window.scrollY + window.innerHeight > contactSection.offsetTop + 100) {
+                contactSection.classList.add("fadeIn");
+            }
+        });
+    });
+
+    document.querySelectorAll('.story-card').forEach(card => {
+  card.addEventListener('mouseover', function () {
+    // Get the data attributes from the card
+    const handle = this.getAttribute('data-handle');
+    const followers = this.getAttribute('data-followers');
+    const image = this.getAttribute('data-image');
+
+    // Update the profile preview area
+    document.getElementById('profile-image').src = image;
+    document.getElementById('profile-handle').textContent = handle;
+    document.getElementById('profile-followers').textContent = `Followers: ${followers}`;
+  });
+});
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const hiddenElements = document.querySelectorAll(".hidden");
+        
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+        
+            hiddenElements.forEach(element => observer.observe(element));
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const creatorCards = document.querySelectorAll(".creator-card");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("float");
+                    }, index * 300);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        creatorCards.forEach((card) => observer.observe(card));
+    });
+
+        const carousel = document.querySelector('.carousel');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 200, behavior: 'smooth' });
+        });
+
+
+        window.addEventListener('scroll', triggerFadeIn);
+        document.addEventListener('DOMContentLoaded', triggerFadeIn);
+
+
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const brandOrCreator = document.getElementById("brandOrCreator").value;
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const message = document.getElementById("message").value;
+
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("brandOrCreator", brandOrCreator);
+      formData.append("phoneNumber", phoneNumber);
+      formData.append("message", message);
+
+      fetch('AKfycbyvocVCKhWRZt9lCZusFTS9ZM4eU_H4x7P2PMRuL2I', {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success") {
+          document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
+          document.getElementById("contactForm").reset();
+        } else {
+          document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
+        }
+      })
+      .catch(error => {
+        document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
+      });
+    });
+
+</script>
+        
+</body>
+</html>

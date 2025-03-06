@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowTogether</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/32c98cb737.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="./Assets/GTAlogo.ico">
+ 
+    <style>
+        html {
+        scroll-behavior: smooth;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Base styles for the navbar */
+        .adaptive-navbar {
+            background-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Default state: Transparent background with white text */
+        .adaptive-navbar .navbar-brand,
+        .adaptive-navbar .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        /* Scrolled state: Light background with black text */
+        .adaptive-navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .adaptive-navbar.scrolled .navbar-brand,
+        .adaptive-navbar.scrolled .nav-link {
+            color: black;
+        }
+
+        /* Hover effect for links */
+        .adaptive-navbar .nav-link:hover {
+            color: #e53f32;
+        }
+
+
+
+        .fade-in-section {
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.5s;
+            animation-fill-mode: both;
+        }
+
+        #about-us {
+        background-color: #ffffff; /* White background */
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1); /* Light gray highlight */
+            border-radius: 50%;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        #about-us .fw-bold {
+            color: black;
+        }
+
+        .text-black-50 {
+            color: rgba(0, 0, 0, 0.75); /* Subtle dark text for readability */
+        }
+
+        .fade-in-section-about{
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: 0.75s;
+            animation-fill-mode: both;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }  
+
+        .service-hero {
+            background: black;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .service-features {
+            background: #ffffff;
+            padding: 40px 0;
+        }
+        .service-features .feature {
+            text-align: center;
+            padding: 20px;
+        }
+        .cta-section {
+            background: #343a40;
+            color: #ffffff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .image-row img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        #contact-us {
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phone-number {
+            display: inline-block;
+            font-weight: bold;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .phone-number:hover {
+            color: #feb47b;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: #feb47b;
+        }
+
+        @media (max-width: 767px) {
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+
+        .whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.whatsapp-link {
+  background-color: #25D366;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+}
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top adaptive-navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="./index.html">Grow Together Agency</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section class="service-hero hidden">
+        <div class="container">
+            <h1 class="display-4">Commercial Video Production</h1>
+            <p class="lead">Bring your brand to life with captivating video content.</p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="py-5 hidden">
+        <div class="container">
+            <h2 class="text-center mb-4">What We Offer</h2>
+            <p class="text-center">Our Commercial Video Production Service is designed to convey your brand's story through compelling visuals. Key offerings include:</p>
+            <ul class="list-group list-group-flush text-center mx-auto" style="max-width: 600px;">
+                <li class="list-group-item"><i class="fas fa-video fa-lg text-primary me-2"></i>Creative Storyboarding</li>
+                <li class="list-group-item"><i class="fas fa-camera fa-lg text-success me-2"></i>High-Quality Filming</li>
+                <li class="list-group-item"><i class="fas fa-edit fa-lg text-warning me-2"></i>Professional Editing</li>
+            </ul>
+
+            <!-- Image Section -->
+            <div class="row mt-5 image-row">
+                <div class="col-md-4">
+                    <img src="./Assets/CV-1.jpeg" alt="Example Image 1" class="img-fluid rounded">
+                </div>
+                <div class="col-md-4">
+                    <img src="./Assets/CV-2.jpeg" alt="Example Image 2" class="img-fluid rounded">
+                </div>
+                <div class="col-md-4">
+                    <img src="./Assets/CV-3.jpeg" alt="Example Image 3" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="service-features hidden">
+        <div class="container">
+            <h2 class="text-center mb-4">Why Choose Us?</h2>
+            <div class="row">
+                <div class="col-md-4 feature">
+                    <i class="fas fa-lightbulb fa-3x text-primary"></i>
+                    <h4>Creative Vision</h4>
+                    <p>We craft unique video concepts tailored to your brand.</p>
+                </div>
+                <div class="col-md-4 feature">
+                    <i class="fas fa-tools fa-3x text-success"></i>
+                    <h4>Cutting-Edge Tools</h4>
+                    <p>State-of-the-art equipment ensures top-notch production quality.</p>
+                </div>
+                <div class="col-md-4 feature">
+                    <i class="fas fa-smile fa-3x text-warning"></i>
+                    <h4>Client Satisfaction</h4>
+                    <p>Your vision is our priority, delivering results you’ll love.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="contact-us" class="py-5 hidden" style="background: linear-gradient(45deg, #ff7e5f, #feb47b);">
+        <div class="container text-center">
+            <h2 class="display-4 text-white mb-4">Contact Us</h2>
+            <p class="text-white mb-5">Reach us through the phone or our social channels.</p>
+    
+            <div class="phone mb-5">
+                <p class="h3 text-white">
+                    <i class=""></i><div class="whatsapp-button">
+                        <a href="https://wa.me/6285183275264" target="_blank" class="whatsapp-link">
+                            <i class="fa-brands fa-whatsapp"></i> +62 851-8327-5264
+                        </a>
+                      </div>
+                </p>
+            </div>
+    
+            <div class="social-icons mt-5">
+                <a href="https://www.instagram.com/gtagency_id/" class="text-white me-4 social-icon"><i class="fab fa-instagram fa-3x"></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gtagency01@gmail.com&su=SUBJECT&body=BODY&bcc=gtagency01@gmail.com" class="text-white me-4 social-icon"><i class="fa-solid fa-envelope fa-3x"></i></a>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <footer class="bg-dark text-white py-5 hidden">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="h5 mb-2"><i class="fas fa-map-marker-alt me-2"></i><strong>Address:</strong></p>
+                    <p class="h5" style="word-wrap: break-word;">Jkt Outer Ring Road No.1 7, Kamal Muara, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14470</p>
+                    <p class="h5 mb-2"><i class="fas fa-phone-alt me-2"></i><strong>Phone:</strong></p>
+                    <p class="h5">+62 851-8327-5264</p>
+                    <p class="h5 mb-2"><i class="fas fa-envelope me-2"></i><strong>Email:</strong></p>
+                    <p class="h5">gtagency01@gmail.com
+                    </p>
+                </div>
+    
+                <div class="col-md-6 text-center">
+                    <h5 class="display-6">Follow Us</h5>
+                    <div></div>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-3x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fa-brands fa-tiktok fa-3x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybzaLlv6wW5e1Z6DrC7fU7r9bLgGQkxxFeB9N1cDJ7jj8E6zqM" crossorigin="anonymous"></script>      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+
+    // JavaScript to toggle the 'scrolled' class based on page position
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.adaptive-navbar');
+        const scrollY = window.scrollY;
+
+        if (scrollY > 50) {
+            // Add scrolled class when user scrolls down
+            navbar.classList.add('scrolled');
+        } else {
+            // Remove scrolled class when at the top
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+        const contactSection = document.getElementById("contact-us");
+        window.addEventListener("scroll", function() {
+            if (window.scrollY + window.innerHeight > contactSection.offsetTop + 100) {
+                contactSection.classList.add("fadeIn");
+            }
+        });
+    });
+
+    document.querySelectorAll('.story-card').forEach(card => {
+  card.addEventListener('mouseover', function () {
+    // Get the data attributes from the card
+    const handle = this.getAttribute('data-handle');
+    const followers = this.getAttribute('data-followers');
+    const image = this.getAttribute('data-image');
+
+    // Update the profile preview area
+    document.getElementById('profile-image').src = image;
+    document.getElementById('profile-handle').textContent = handle;
+    document.getElementById('profile-followers').textContent = `Followers: ${followers}`;
+  });
+});
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const hiddenElements = document.querySelectorAll(".hidden");
+        
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+        
+            hiddenElements.forEach(element => observer.observe(element));
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const creatorCards = document.querySelectorAll(".creator-card");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("float");
+                    }, index * 300);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        creatorCards.forEach((card) => observer.observe(card));
+    });
+
+        const carousel = document.querySelector('.carousel');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -200, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 200, behavior: 'smooth' });
+        });
+
+
+        window.addEventListener('scroll', triggerFadeIn);
+        document.addEventListener('DOMContentLoaded', triggerFadeIn);
+
+
+        
+
+</script>
+        
+</body>
+</html>
