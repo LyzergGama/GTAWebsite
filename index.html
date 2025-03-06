@@ -1419,50 +1419,42 @@
         carousel.scrollBy({ left: 200, behavior: 'smooth' });
     });
 
-    // Contact form submission (your code here)
     document.getElementById("contactForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission
 
-        const firstName = document.getElementById("firstName").value;
-        const lastName = document.getElementById("lastName").value;
-        const brandOrCreator = document.getElementById("brandOrCreator").value;
-        const phoneNumber = document.getElementById("phone").value;
-        const message = document.getElementById("message").value;
+    // Ambil data dari form
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const brandOrCreator = document.getElementById("brandOrCreator").value;
+    const phoneNumber = document.getElementById("phone").value;
+    const message = document.getElementById("message").value;
 
-        console.log('Form Data:', { firstName, lastName, brandOrCreator, phoneNumber, message });
+    // Kirim data ke Google Apps Script menggunakan FormData
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("brandOrCreator", brandOrCreator);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("message", message);
 
-        const formData = new FormData();
-        formData.append("firstName", firstName);
-        formData.append("lastName", lastName);
-        formData.append("brandOrCreator", brandOrCreator);
-        formData.append("phoneNumber", phoneNumber);
-        formData.append("message", message);
-
-        // Use the provided Google Apps Script URL
-        fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
-            method: "POST",
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to submit form');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Response from Google Apps Script:', data);
-            if (data.result === "success") {
-                document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
-                document.getElementById("contactForm").reset();
-            } else {
-                document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
-            }
-        })
-        .catch(error => {
-            console.error('Error submitting form:', error);
-            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form. Please try again later.</div>";
-        });
+    // URL dari Google Apps Script yang sudah dideploy
+    fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result === "success") {
+            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
+            document.getElementById("contactForm").reset();
+        } else {
+            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
+        }
+    })
+    .catch(error => {
+        document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
     });
+});
 });
 
 </script>
