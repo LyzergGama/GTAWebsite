@@ -1434,38 +1434,40 @@
 
 
         document.getElementById("contactForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      
-      const firstName = document.getElementById("firstName").value;
-      const lastName = document.getElementById("lastName").value;
-      const brandOrCreator = document.getElementById("brandOrCreator").value;
-      const phoneNumber = document.getElementById("phoneNumber").value;
-      const message = document.getElementById("message").value;
+    event.preventDefault();
+    
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const brandOrCreator = document.getElementById("brandOrCreator").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    const message = document.getElementById("message").value;
 
-      const formData = new FormData();
-      formData.append("firstName", firstName);
-      formData.append("lastName", lastName);
-      formData.append("brandOrCreator", brandOrCreator);
-      formData.append("phoneNumber", phoneNumber);
-      formData.append("message", message);
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("brandOrCreator", brandOrCreator);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("message", message);
 
-      fetch('AKfycbyvocVCKhWRZt9lCZusFTS9ZM4eU_H4x7P2PMRuL2I', {
+    // Use the provided Google Apps Script URL
+    fetch('https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec', {
         method: "POST",
         body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
+    })
+    .then(response => response.json())
+    .then(data => {
         if (data.result === "success") {
-          document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
-          document.getElementById("contactForm").reset();
+            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
+            document.getElementById("contactForm").reset();
         } else {
-          document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
+            document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
         }
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
-      });
     });
+});
+
 
 </script>
         
