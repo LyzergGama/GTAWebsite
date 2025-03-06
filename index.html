@@ -1343,8 +1343,10 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybzaLlv6wW5e1Z6DrC7fU7r9bLgGQkxxFeB9N1cDJ7jj8E6zqM" crossorigin="anonymous"></script>      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-  // JavaScript to toggle the 'scrolled' class based on page position
+      <script>
+
+
+    // JavaScript to toggle the 'scrolled' class based on page position
     document.addEventListener("DOMContentLoaded", function () {
     // Scroll event listener for navbar
     window.addEventListener('scroll', () => {
@@ -1418,7 +1420,8 @@
     });
 
     // Contact form submission (your code here)
-   document.getElementById("contactForm").addEventListener("submit", function(event) {
+   // Contact form submission handler
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
         event.preventDefault();
         
         const firstName = document.getElementById("firstName").value;
@@ -1451,6 +1454,7 @@
         .catch(error => {
             document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
         });
+    });
 });
 
 </script>
