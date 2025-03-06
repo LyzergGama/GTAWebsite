@@ -1420,8 +1420,9 @@
     });
 
  document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission
 
+    // Get form data
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const brandOrCreator = document.getElementById("brandOrCreator").value;
@@ -1435,24 +1436,35 @@
     formData.append("phoneNumber", phoneNumber);
     formData.append("message", message);
 
-    // Use the provided Google Apps Script URL
-    fetch('https://script.google.com/macros/s/AKfycbyT_sH0Jgu2afJt-R6iluwniBbn79zWsp_U3XTuZHpUFoOZcQoxhe3cUYpcEVHBvl8Y/exec', {
+    // Log data to check it's being captured
+    console.log("Form data: ", {
+        firstName, lastName, brandOrCreator, phoneNumber, message
+    });
+
+    // Your Google Apps Script URL
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyT_sH0Jgu2afJt-R6iluwniBbn79zWsp_U3XTuZHpUFoOZcQoxhe3cUYpcEVHBvl8Y/exec';
+
+    // Send the data using Fetch API
+    fetch(scriptUrl, {
         method: "POST",
-        body: formData
+        body: formData,
     })
     .then(response => response.json())
     .then(data => {
+        console.log("Response Data: ", data); // Check if the response is correct
         if (data.result === "success") {
             document.getElementById("responseMessage").innerHTML = "<div class='alert alert-success'>Thank you for contacting us!</div>";
-            document.getElementById("contactForm").reset();
+            document.getElementById("contactForm").reset(); // Reset the form fields
         } else {
             document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
         }
     })
     .catch(error => {
+        console.error("Error submitting form: ", error); // Log any errors to the console
         document.getElementById("responseMessage").innerHTML = "<div class='alert alert-danger'>There was an error submitting your form.</div>";
     });
 });
+
 });
 
 </script>
