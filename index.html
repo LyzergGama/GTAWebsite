@@ -1320,6 +1320,13 @@
             <div class="container">
                 <h2 class="text-center">Contact Us</h2>
                 <form id="contactForm">
+                <div class="mb-3">
+                    <label for="brandOrCreator" class="form-label">Are you a Brand or a Creator?</label>
+                    <select class="form-control" id="brandOrCreator" required>
+                      <option value="Brand">Brand</option>
+                      <option value="Creator">Creator</option>
+                    </select>
+                  </div>
                   <div class="mb-3">
                     <label for="firstName" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="firstName" required />
@@ -1327,13 +1334,6 @@
                   <div class="mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
                     <input type="text" class="form-control" id="lastName" required />
-                  </div>
-                  <div class="mb-3">
-                    <label for="brandOrCreator" class="form-label">Are you a Brand or a Creator?</label>
-                    <select class="form-control" id="brandOrCreator" required>
-                      <option value="Brand">Brand</option>
-                      <option value="Creator">Creator</option>
-                    </select>
                   </div>
                   <div class="mb-3">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
