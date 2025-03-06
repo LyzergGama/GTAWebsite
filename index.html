@@ -698,50 +698,6 @@
   text-decoration: none;
 }
 
-#articles {
-            margin-top: 50px;  /* Add some margin at the top for spacing */
-        }
-
-        #articles .carousel-item img {
-            width: 100%;
-            height: auto;
-        }
-
-        #articles .carousel-item .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 10px;
-        }
-
-        #articles .article-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        #articles .article-summary {
-            font-size: 1rem;
-            color: #6c757d;
-        }
-
-        /* Ensure the carousel doesn't interfere with other styles */
-        #articleCarousel {
-            margin-bottom: 30px;
-        }
-
-        #articles h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        #articles .carousel-control-prev-icon,
-        #articles .carousel-control-next-icon {
-            background-color: #000;
-        }
-
 
     </style>
 </head>
@@ -1260,56 +1216,6 @@
     </section>
 
 
-    <section id="articles" class="container">
-    <h2>Latest Articles</h2>
-
-    <?php
-    if ($result->num_rows > 0) {
-        // Start the carousel
-        echo '<div id="articleCarousel" class="carousel slide" data-bs-ride="carousel">';
-        echo '<div class="carousel-inner">';
-
-        $isFirst = true;  // To add the 'active' class to the first article
-        while ($row = $result->fetch_assoc()) {
-            $image = $row['image']; // Fetch image for the article
-            $articleId = $row['id']; // Fetch the article ID
-            $imagePath = "Assets/" . htmlspecialchars($image); // Correct image path
-            
-            echo '<div class="carousel-item ' . ($isFirst ? 'active' : '') . '">';
-            echo '<a href="view_article.php?id=' . $articleId . '">';
-            
-            // Check if the image exists
-            if (!empty($image) && file_exists($imagePath)) {
-                echo '<img src="' . $imagePath . '" class="d-block w-100" alt="Article Image">';
-            } else {
-                // Fallback if the image is not available
-                echo '<img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="No Image Available">';
-            }
-            
-            echo '</a>';
-            echo '<div class="carousel-caption d-none d-md-block">';
-            echo '<h5 class="article-title">' . htmlspecialchars($row['title']) . '</h5>';
-            echo '<p class="article-summary">' . substr(htmlspecialchars($row['content']), 0, 150) . '...</p>';
-            echo '</div>';
-            echo '</div>';
-            $isFirst = false;
-        }
-
-        echo '</div>';  // End carousel-inner
-        echo '<button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">';
-        echo '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
-        echo '<span class="visually-hidden">Previous</span>';
-        echo '</button>';
-        echo '<button class="carousel-control-next" type="button" data-bs-target="#articleCarousel" data-bs-slide="next">';
-        echo '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
-        echo '<span class="visually-hidden">Next</span>';
-        echo '</button>';
-        echo '</div>';  // End carousel
-    } else {
-        echo "<p>No articles found.</p>";
-    }
-    ?>
-</section>
 
     
     <section id="contact-us" class="py-5" style="background: linear-gradient(45deg, #ff7e5f, #feb47b);">
@@ -1321,19 +1227,19 @@
                 <h2 class="text-center">Contact Us</h2>
                 <form id="contactForm">
                   <div class="mb-3">
-                    <label for="brandOrCreator" class="form-label">Are you a Brand or a Creator?</label>
-                    <select class="form-control" id="brandOrCreator" required>
-                      <option value="Brand">Brand</option>
-                      <option value="Creator">Creator</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
                     <label for="firstName" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="firstName" required />
                   </div>
                   <div class="mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
                     <input type="text" class="form-control" id="lastName" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="brandOrCreator" class="form-label">Are you a Brand or a Creator?</label>
+                    <select class="form-control" id="brandOrCreator" required>
+                      <option value="Brand">Brand</option>
+                      <option value="Creator">Creator</option>
+                    </select>
                   </div>
                   <div class="mb-3">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
