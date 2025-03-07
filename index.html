@@ -1399,19 +1399,28 @@
     });
 
     // Contact form submission (your code here)
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwewpON8-4PFTe5H4MMQDYfIdX_EbBUy73LAW3lAW3RwzXHn9z_ei9Na2TBBv9EjA0/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyT_sH0Jgu2afJt-R6iluwniBbn79zWsp_U3XTuZHpUFoOZcQoxhe3cUYpcEVHBvl8Y/exec';
+    const form = document.forms['contact-form'];
 
-        const form = document.forms['contact-form']
+    form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        form.addEventListener('submit', e => {
-        
-        e.preventDefault()
-        
-        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => alert("Thank you! Form is submitted" ))
-        .then(() => { window.location.reload(); })
-        .catch(error => console.error('Error!', error.message))
-        })
+    fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+    })
+    .then(response => response.json()) // Ensure JSON response
+    .then(data => {
+        if (data.result === 'success') {
+        alert('Thank you! Your form has been submitted.');
+        form.reset(); // Clear the form
+        } else {
+        alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => alert('Error: ' + error.message));
+    });
+
 });
 
 
